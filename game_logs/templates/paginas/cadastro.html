@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+    <link rel="stylesheet" href="{% static 'css/variaveis.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+    <title>Cadastro</title>
+</head>
+<body>
+    <nav class="container-nav">
+        <div class="navbar-play">
+            <a class="navbar-button" href="{% url 'login' %}">LOGIN</a>
+        </div>
+        <div class="navbar-more">
+            <a class="navbar-link" href="{% url 'home' %}">PAGINA INICIAL</a>
+            <a class="navbar-link" href="#">CLASSIFICAÇÃO</a>
+            <a class="navbar-link" href="#">INFORMAÇÕES PESSOAIS</a>
+            <a class="navbar-link" href="{% url 'contato' %}">CONTATO</a>
+        </div>
+    </nav>
+
+    <div class="main-login">
+        <div class="left-login">
+            <h1>Faça cadastro<br>E entre para o time</h1>
+        </div>
+        <div class="right-login">
+        <div class="card-login">
+            <h1>CADASTRO</h1>
+            <form action="{% url 'cadastre' %}" class="formulario" method="POST" onsubmit="return validatePasswords()">
+                {% csrf_token %}
+            <div class="textfield"> 
+                <label for="usuario">Nome Completo</label>
+                <input type="text" name="nome" placeholder="Nome">
+            <div class="textfield"> 
+                <label for="usuario">E-mail</label>
+                <input type="email" name="email" placeholder="e-mail">
+            </div>
+            <div class="textfield"> 
+                <label for="usuario">Usuário</label>
+                <input type="text" name="usuario" placeholder="Usuário">
+            </div>
+            <div class="textfield">
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" id="senha" placeholder="Senha">
+            </div>
+            <div class="textfield">
+                <label for="senha">Confirme sua senha</label>
+                <input type="password" name="confirma_senha" id="confirma_senha" placeholder="Senha">
+            </div>
+            <button class="btn-login btn" type="submit" style="margin: 25px 0px;">CADASTRAR</button>
+            </form>
+            <p>Já fez seu cadastro? <span><a href="{% url 'login' %}">Agora faça seu login</a></span></p>
+        </div>
+    </div>       
+
+    <script>
+        function validatePasswords() {
+            var senha = document.getElementById("senha").value;
+            var confirmaSenha = document.getElementById("confirma_senha").value;
+
+            if (senha !== confirmaSenha) {
+                alert("As senhas não conferem. Por favor, tente novamente.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
